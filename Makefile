@@ -19,7 +19,7 @@ clean:
 	/bin/rm -f $(OBJS)
 
 fclean:	clean
-	/bin/rm -f $(NAME)
+	/bin/rm -f $(NAME) test
 
 re:	fclean all
 
