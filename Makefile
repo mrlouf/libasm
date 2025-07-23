@@ -11,7 +11,7 @@ all:	$(NAME)
 %.o:	%.s Makefile
 	nasm -f elf64 $< -o $@
 
-$(NAME): $(OBJS) Makefile
+$(NAME): $(OBJS) Makefile main.c
 	ar rcs $(NAME) $(OBJS)
 	cc main.c -L. $(OBJS) -o test -lasm
 

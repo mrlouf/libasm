@@ -1,9 +1,6 @@
 section .data
 ; where you declare constant values, file names, buffer size, etc.
 
-msg db 'Hello, world!', 0xa
-len equ $ - msg
-
 section .bss
 ; where you declare variables used in the program/function
 
@@ -11,12 +8,12 @@ section .text
 	global ft_strlen
 
 ft_strlen:
-	mov edx,len
-	mov ecx,msg
-	mov ebx,1
-	mov eax,4
-	int 0x80
+	mov rax,rdi			; get first (and only) argument
+	cmp rax,0			; compare argument to 0
+	je .exit			; if argument is 0, exit directly
+	mov eax,1			; else count
+	ret
 
-	mov eax,1
-	int 0x80
-	
+.exit:
+	mov eax,0
+	ret
