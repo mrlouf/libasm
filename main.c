@@ -2,12 +2,24 @@
 #include <string.h>
 
 // Declaring the asm functions as extern
-extern int	ft_strlen(char const *s);
+extern int		ft_strlen(char const *s);
+extern char*	ft_strcpy(char *dest, char const *src);
 
-char const		*str = "Hello world";
+char const		*s1 = "Hello world";
+char const		*s2 = "";
 
 int	main()
 {
-	printf("%i\n", ft_strlen(str));
-	printf("%lu\n", strlen(str));
+	{
+		printf("%i\n", ft_strlen(""));
+		printf("%lu\n", strlen(""));
+		printf("%i\n", ft_strlen(s1));
+		printf("%lu\n", strlen(s1));
+	}
+	{
+		printf("%s\n", ft_strcpy("", ""));
+		printf("%s\n", strcpy("", ""));
+		printf("%s\n", ft_strcpy("", s1));
+		printf("%s\n", strcpy("", s1));
+	}
 }
