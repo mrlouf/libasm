@@ -1,17 +1,26 @@
-libasm:
-	;
+NAME	= libasm
 
-all:
-	;
+SRCS	= ft_strlen.s
+
+OBJS	= $(SRCS:%.s=%.o)
+
+
+
+all:	$(NAME)
+
+%.o:	%.s Makefile
+	nasm -f elf $< -o $@
+
+$(NAME): $(OBJS) $(SRCS) Makefile
+	ld -m elf_i386 -s -o $(NAME) $(OBJS)
 
 clean:
-	;
+	/bin/rm -f $(OBJS)
 
-fclean:
-	;
+fclean:	clean
+	/bin/rm -f $(NAME)
 
-re:
-	;
+re:	fclean all
 
 
 .PHONY: libasm all clean fclean re
