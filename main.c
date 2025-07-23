@@ -8,6 +8,6 @@ char const		*str = "Hello world";
 
 int	main()
 {
-	printf("%i", ft_strlen("dsa"));
-	printf("%lu", strlen(str));
+	printf("%i\n", ft_strlen(str));
+	printf("%lu\n", strlen(str));
 }

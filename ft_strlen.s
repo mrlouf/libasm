@@ -2,18 +2,23 @@ section .data
 ; where you declare constant values, file names, buffer size, etc.
 
 section .bss
-; where you declare variables used in the program/function
+; where you declare variables used in the program/function.
 
 section .text
 	global ft_strlen
 
 ft_strlen:
-	mov rax,rdi			; get first (and only) argument
-	cmp rax,0			; compare argument to 0
+	cmp byte [rdi], 0	; compare argument to 0
 	je .exit			; if argument is 0, exit directly
-	mov eax,1			; else count
-	ret
+	mov rax, 0			; initialise the return value to 0
+	call .loop			; call loop
+
+.loop:
+	cmp byte [rdi], 0	; compare argument to 0
+	je .exit			; exit when parameter is null
+	inc rax				; otherwise increment return value in rax
+	inc rdi				; and the pointer passed as parameter
+	call .loop
 
 .exit:
-	mov eax,0
 	ret
