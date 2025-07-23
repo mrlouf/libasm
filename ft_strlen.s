@@ -8,9 +8,9 @@ section .bss
 ; where you declare variables used in the program/function
 
 section .text
-	global _start
+	global ft_strlen
 
-_start:
+ft_strlen:
 	mov edx,len
 	mov ecx,msg
 	mov ebx,1
