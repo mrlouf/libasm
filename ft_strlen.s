@@ -13,10 +13,10 @@ ft_strlen:
 	jz .exit			; exit if null-pointer
 
 .loop:
-	cmp byte [rdi], 0	; compare argument to 0
-	je .exit			; exit when parameter is null
-	add rax, 1			; otherwise increment return value in rax
-	inc rdi				; and the pointer passed as parameter
+	cmp byte [rdi], 0	; compare arg1 to 0
+	je .exit			; exit when arg1 is null ('\0')
+	inc rax				; otherwise increment the value in rax
+	inc rdi				; and advance the memory address of the parameter
 	call .loop			; repeat iteration
 
 .exit:
