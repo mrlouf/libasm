@@ -8,26 +8,23 @@ section .text
 	global ft_strcmp
 
 ft_strcmp:
-	mov rax, 0  		; initialise the return value to dest
+	mov eax, 0  		; initialise the return value in eax: int = 32 bits
 
 .loop:
 	mov al, [rsi]		; copy character from arg1 into 8-bit register AL
-    cmp al, [rdi]       ; compare *arg1 to *arg2
-    jg .greater         ;
-    jl .less            ;
+    mov dl, [rdi]       ; do the same for arg2
+    cmp al, dl          ; compare *arg1 to *arg2
+    jne .diff           ; jump to diff if not equal
 	inc rsi				; advance memory address in arg1
 	inc rdi				; and in arg2
-    cmp byte [rsi], 0   ; check for null-byte in arg1
+    test al, al         ; check for null-byte in arg1
     je .exit            ;
-	call .loop			; continue if not null
+    test dl, dl         ; do the same check for arg2
+	jmp .loop			; continue if not null
 
-.greater:
-    add al, [rdi]
-    movsx rax, al         ; set return value in rax
-    ret
-
-.less:
-    mov rax, [rdi]
+.diff:
+    sub al, dl
+    movsx eax, al
     ret    
 
 .exit:

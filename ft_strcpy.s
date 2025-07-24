@@ -13,11 +13,9 @@ ft_strcpy:
 .loop:
 	mov dl, [rsi]		; copy character from src into 8-bit register DL
 	mov [rdi], dl		; copy from DL into dest
-	inc rsi				; advance memory address in dest
-	inc rdi				; and in src
-	cmp byte [rdi], 0	; now compare src to 0
-	je .exit			; exit if null
-	call .loop			; continue if not null
+	inc rsi				; advance memory address in src
+	inc rdi				; and in dest
+	test dl, dl			; now compare dest to 0
+	jnz .loop			; loop if not null
 
-.exit:
 	ret

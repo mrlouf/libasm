@@ -21,7 +21,7 @@ $(OBJDIR)/%.o:	%.s Makefile
 
 $(NAME): $(OBJS) Makefile main.c
 	ar rcs $(NAME) $(OBJS)
-	cc -g -fsanitize=address main.c -L. $(OBJS) -o test -lasm
+	gcc -g main.c -L. $(OBJS) -o test -O0
 
 clean:
 	/bin/rm -fr $(OBJDIR)

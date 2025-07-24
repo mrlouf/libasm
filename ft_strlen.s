@@ -8,7 +8,7 @@ section .text
 	global ft_strlen
 
 ft_strlen:
-	mov rax, 0			; initialise the return value to 0
+	mov rax, 0			; initialise the return value to 0 in rax = 64 bits/size_t
 	test rdi, rdi		; test for null-pointer
 	jz .exit			; exit if null-pointer
 
@@ -17,7 +17,7 @@ ft_strlen:
 	je .exit			; exit when arg1 is null ('\0')
 	inc rax				; otherwise increment the value in rax
 	inc rdi				; and advance the memory address of the parameter
-	call .loop			; repeat iteration
+	jmp .loop			; repeat iteration
 
 .exit:
 	ret
