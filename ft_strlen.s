@@ -9,11 +9,13 @@ section .text
 
 ft_strlen:
 	mov rax, 0			; initialise the return value to 0
+	test rdi, rdi		; test for null-pointer
+	jz .exit			; exit if null-pointer
 
 .loop:
 	cmp byte [rdi], 0	; compare argument to 0
 	je .exit			; exit when parameter is null
-	inc rax				; otherwise increment return value in rax
+	add rax, 1			; otherwise increment return value in rax
 	inc rdi				; and the pointer passed as parameter
 	call .loop			; repeat iteration
 

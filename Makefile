@@ -7,13 +7,16 @@ SRCS	=	ft_strlen.s		\
 			ft_read.s		\
 			ft_strdup.s
 
-OBJS	= $(SRCS:%.s=%.o)
+OBJDIR	= .obj
+
+OBJS	= $(addprefix $(OBJDIR)/, $(SRCS:.s=.o))
 
 CFLAGS	= -Werror -Wextra -Wall
 
 all:	$(NAME)
 
-%.o:	%.s Makefile
+$(OBJDIR)/%.o:	%.s Makefile
+	mkdir -p $(@D)
 	nasm -f elf64 -g $< -o $@
 
 $(NAME): $(OBJS) Makefile main.c
@@ -21,7 +24,7 @@ $(NAME): $(OBJS) Makefile main.c
 	cc -g -fsanitize=address main.c -L. $(OBJS) -o test -lasm
 
 clean:
-	/bin/rm -f $(OBJS)
+	/bin/rm -fr $(OBJDIR)
 
 fclean:	clean
 	/bin/rm -f $(NAME) test

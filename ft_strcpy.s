@@ -8,18 +8,20 @@ section .text
 	global ft_strcpy
 
 ft_strcpy:
-	mov rax, rdi		; initialise the return value to 0
+	test rdi, rdi		; test dest for null-pointer
+	jz .exit			; exit if null-pointer
+	test rsi, rsi		; test src for null-pointer
+	jz .exit
+	mov rax, rdi		; initialise the return value to dest
 
 .loop:
-	cmp byte [rax], 0	; compare dest to 0
-	je .exit			; exit when dest is null
-	cmp byte [rsi], 0	; now compare src to 0
-	je .exit			; also exit if null
-	mov dl, [rsi]		; copy character into 8-bit register DL
+	mov dl, [rsi]		; copy character from src into 8-bit register DL
 	mov [rdi], dl		; copy from DL into dest
-	inc rax				; increment address in rax
-	inc rdi				; and the pointer passed as parameter
-	call .loop			; repeat iteration
+	cmp byte [rdi], 0	; now compare src to 0
+	je .exit			; exit if null
+	inc rsi				; increment address in dest
+	inc rdi				; and src
+	call .loop			; continue if not null
 
 .exit:
 	ret
