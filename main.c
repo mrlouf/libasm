@@ -5,8 +5,8 @@
 extern int		ft_strlen(char const *s);
 extern char*	ft_strcpy(char *dest, char const *src);
 
-char const		*s1 = "Hello world";
-char const		*s2 = "";
+char const		*s1 = "Hello";
+char const		*s2 = "World";
 
 int	main()
 {
@@ -15,11 +15,12 @@ int	main()
 		printf("%lu\n", strlen(""));
 		printf("%i\n", ft_strlen(s1));
 		printf("%lu\n", strlen(s1));
-	}
-	{
+
 		printf("%s\n", ft_strcpy("", ""));
 		printf("%s\n", strcpy("", ""));
-		printf("%s\n", ft_strcpy("", s1));
-		printf("%s\n", strcpy("", s1));
+		printf("%s\n", ft_strcpy("Hello", s2));
+		printf("%s\n", strcpy("Hello", s2));
+		//printf("%s\n", ft_strcpy("", s1));
+		//printf("%s\n", strcpy("", s1));
 	}
 }
