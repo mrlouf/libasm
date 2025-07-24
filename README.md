@@ -9,7 +9,7 @@ This project is a recreation of some functions from the 42 libft, implemented in
     - Uses a loop to iterate through the string until it finds the null terminator.
     - Returns the length of the string in the `rax` register.
 - `ft_strcpy`: Copies a string from source to destination. Key points:
-    - Uses a loop to copy each character from the source string to the destination string, using the 8-bit register `dl` as a temporary storage.
+    - Uses a loop to copy each character from the source string to the destination string, using the 8-bit register `dl` as a temporary storage, as memory-to-memory operations are not possible in x86_64 assembly.
     - Returns the destination string in the `rax` register.
 - `ft_strcmp`: Compares two strings.
 - `ft_write`: Writes a string to the standard output.

@@ -9,9 +9,6 @@ section .text
 
 ft_strlen:
 	mov rax, 0			; initialise the return value to 0
-	cmp byte [rdi], 0	; compare argument to 0
-	je .exit			; if argument is 0, exit directly
-	call .loop			; call loop
 
 .loop:
 	cmp byte [rdi], 0	; compare argument to 0
