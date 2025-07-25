@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 // Declaring the asm functions as extern
 extern size_t	ft_strlen(char const *s);
@@ -8,6 +9,7 @@ extern char*	ft_strcpy(char *dest, char const *src);
 extern int		ft_strcmp(char const *s1, char const *s2);
 extern ssize_t	ft_write(int fd, const void *buf, size_t count);
 extern ssize_t	ft_read(int fd, void *buf, size_t count);
+extern char*	ft_strdup(char const *s);
 
 char const		*s1 = "Hello";
 char			s2[20] = "World!";
@@ -115,6 +117,19 @@ int	main()
 			ft_write(1, "\n", 1);
 			printf("bytesRead: %zd\n", bytesRead);
 			printf("ft_write returned: %zd\n", res);
+		}
+		ft_write(1, "\n", 1);
+	}
+	{
+		char *dup = ft_strdup("");
+		if (dup) {
+			ft_write(1, "Duplicated string: ", 19);
+			ft_write(1, dup, ft_strlen(dup));
+			ft_write(1, "\n", 1);
+			free(dup);
+			dup = NULL;
+		} else {
+			ft_write(1, "Error duplicating string.\n", 27);
 		}
 	}
 }

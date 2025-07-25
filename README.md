@@ -17,7 +17,9 @@ This project is a recreation of some functions from the 42 libft, implemented in
 - `ft_write`: Writes a string to the standard output. Key points:
     - Uses the `syscall` instruction to invoke the write system call.
     - Handles errors by checking the return value and setting `errno` if necessary.
-- `ft_read`: Reads a string from the standard input.
+- `ft_read`: Reads a string from the standard input. Key points:
+    - Uses the `syscall` instruction to invoke the read system call, similarly to ft_write.
+    - Handles errors by checking the return value and setting `errno` if necessary.
 - `ft_strdup`: Duplicates a string by allocating memory for it and copying the content.
 
 ## _CHEATSHEET_
