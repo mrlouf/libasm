@@ -13,7 +13,7 @@ This project is a recreation of some functions from the 42 libft, implemented in
     - Returns the destination string in the `rax` register.
 - `ft_strcmp`: Compares two strings. Key points:
     - Uses the movzx instruction to cast the characters to unsigned integers before performing the subtraction.
-    - Returns the difference between the first non-matching characters in the `eax` register since the return value of strcmp is an 32-bit integer.
+    - Returns the difference between the first non-matching characters in the `eax` register since the return value of strcmp is a 32-bit integer.
 - `ft_write`: Writes a string to the standard output.
 - `ft_read`: Reads a string from the standard input.
 - `ft_strdup`: Duplicates a string by allocating memory for it and copying the content.
@@ -38,6 +38,7 @@ This project is a recreation of some functions from the 42 libft, implemented in
     - Use `je`, `jne`, `jg`, `jl`, etc. for conditional jumps based on the flags set by previous operations.
 
 ### _REFERENCES_
+- https://diveintosystems.org/singlepage/#_x64_assembly_chapter
 - https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf
 - https://www.tutorialspoint.com/assembly_programming/index.htm
 - https://gpfault.net/posts/asm-tut-0.txt.html

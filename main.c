@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 // Declaring the asm functions as extern
 extern size_t	ft_strlen(char const *s);
@@ -65,8 +66,24 @@ int	main()
 			printf("Test %2d: ft_strcmp(\"%s\", \"%s\") = %d | strcmp = %d\n",
 				i, tests[i].a, tests[i].b, ft, std);
 		}
+		printf("\n");
 	}
 	{
+		printf("Testing write:\n");
+		ft_write(1, "Hello, World!\n", 14);
+		write(1, "Hello, World!\n", 14);
+		ft_write(1, "This is a test of ft_write.\n", 10);
+		ft_write(1, "\n", 1);
+		write(1, "This is a test of write.\n", 10);
+		ft_write(1, "\n", 1);
+		ft_write(42, "This should fail and print nothing.\n", 38);
+		write(42, "This should also fail and print nothing.\n", 42);
+		ft_write(1, "", 0);
+		write(1, "", 0);
 
+		printf("\n");
+	}
+	{
+		
 	}
 }
