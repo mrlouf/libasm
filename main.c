@@ -5,6 +5,7 @@
 extern size_t	ft_strlen(char const *s);
 extern char*	ft_strcpy(char *dest, char const *src);
 extern int		ft_strcmp(char const *s1, char const *s2);
+extern ssize_t	ft_write(int fd, const void *buf, size_t count);
 
 char const		*s1 = "Hello";
 char			s2[20] = "World!";
@@ -66,6 +67,6 @@ int	main()
 		}
 	}
 	{
-		
+
 	}
 }
