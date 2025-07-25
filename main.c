@@ -65,4 +65,7 @@ int	main()
 				i, tests[i].a, tests[i].b, ft, std);
 		}
 	}
+	{
+		
+	}
 }
