@@ -7,6 +7,7 @@ extern size_t	ft_strlen(char const *s);
 extern char*	ft_strcpy(char *dest, char const *src);
 extern int		ft_strcmp(char const *s1, char const *s2);
 extern ssize_t	ft_write(int fd, const void *buf, size_t count);
+extern ssize_t	ft_read(int fd, void *buf, size_t count);
 
 char const		*s1 = "Hello";
 char			s2[20] = "World!";
@@ -84,6 +85,36 @@ int	main()
 		printf("\n");
 	}
 	{
-		
+		char buffer[100];
+		ssize_t bytesRead;
+
+		ft_write(1, "Testing read:\n", 15);
+		ft_write(1, "Enter some text: ", 17);
+		bytesRead = ft_read(0, buffer, sizeof(buffer) - 1);
+		if (bytesRead < 0) {
+			ft_write(1, "Error reading input.\n", 22);
+		} else {
+			buffer[bytesRead] = '\0'; // Null-terminate the string
+			ft_write(1, "You entered: ", 13);
+			const ssize_t res = ft_write(1, buffer, bytesRead);
+			ft_write(1, "\n", 1);
+			printf("bytesRead: %zd\n", bytesRead);
+			printf("ft_write returned: %zd\n", res);
+			ft_write(1, "\n", 1);
+		}
+
+		ft_write(1, "Testing ft_read with invalid file descriptor:\n", 48);
+		bytesRead = ft_read(42, buffer, sizeof(buffer) - 1);
+		if (bytesRead < 0) {
+			ft_write(1, "Error reading from invalid file descriptor: ", 45);
+			printf("errno code: %zd\n", bytesRead);
+		} else {
+			buffer[bytesRead] = '\0'; // Null-terminate the string
+			ft_write(1, "You entered: ", 13);
+			const ssize_t res = ft_write(1, buffer, bytesRead);
+			ft_write(1, "\n", 1);
+			printf("bytesRead: %zd\n", bytesRead);
+			printf("ft_write returned: %zd\n", res);
+		}
 	}
 }

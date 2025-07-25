@@ -14,7 +14,9 @@ This project is a recreation of some functions from the 42 libft, implemented in
 - `ft_strcmp`: Compares two strings. Key points:
     - Uses the movzx instruction to cast the characters to unsigned integers before performing the subtraction.
     - Returns the difference between the first non-matching characters in the `eax` register since the return value of strcmp is a 32-bit integer.
-- `ft_write`: Writes a string to the standard output.
+- `ft_write`: Writes a string to the standard output. Key points:
+    - Uses the `syscall` instruction to invoke the write system call.
+    - Handles errors by checking the return value and setting `errno` if necessary.
 - `ft_read`: Reads a string from the standard input.
 - `ft_strdup`: Duplicates a string by allocating memory for it and copying the content.
 
