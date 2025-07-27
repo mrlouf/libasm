@@ -46,4 +46,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY: libasm all clean fclean re
+.PHONY: libasm all clean fclean re bonus

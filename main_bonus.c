@@ -16,12 +16,30 @@ typedef struct s_list {
     struct s_list *next;
 }   t_list;
 
-char const		*s1 = "Hello";
-char			s2[20] = "World!";
-char const		*s3 = NULL;
+// utils functions to create lists
+t_list *create_node(void *data) {
+    t_list *node = malloc(sizeof(t_list));
+    if (!node) return NULL;
+    node->data = data;
+    node->next = NULL;
+    return node;
+}
+
+char		*s1 = "Hello";
+char		s2[20] = "World!";
+char		*s3 = NULL;
+
+t_list *lst = NULL;
 
 int	main()
 {
-
+    {
+        int size = ft_list_size(lst);
+        printf("List size: %d\n", size);
+        lst = create_node((void *) s1);
+        size = ft_list_size(lst);
+        printf("List size: %d\n", size);
+        
+    }
     return 0;
 }
