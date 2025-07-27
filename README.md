@@ -41,7 +41,7 @@ Summary table of the main 64-bit registers and their typical uses in NASM for Li
 | r10–r11  |           | Temporary, volatile                      | Not preserved across calls            |
 | r12–r15  |           | Callee-saved (must be preserved)         | General purpose                       |
 
--**Function arguments (in order):**
+- **Function arguments (in order):**
 1. `rdi`
 2. `rsi`
 3. `rdx`

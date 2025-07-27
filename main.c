@@ -18,7 +18,7 @@ char const		*s3 = NULL;
 
 int	main()
 {
-	{
+ 	{
 		printf("Testing strlen:\n");
 		printf("%lu\n", ft_strlen(""));
 		printf("%lu\n", strlen(""));
@@ -90,7 +90,7 @@ int	main()
 		char buffer[100];
 		ssize_t bytesRead;
 
-/* 		ft_write(1, "Testing read:\n", 15);
+ 		ft_write(1, "Testing read:\n", 15);
 		ft_write(1, "Enter some text: ", 17);
 		bytesRead = ft_read(0, buffer, sizeof(buffer) - 1);
 		if (bytesRead < 0) {
@@ -103,7 +103,7 @@ int	main()
 			printf("bytesRead: %zd\n", bytesRead);
 			printf("ft_write returned: %zd\n", res);
 			ft_write(1, "\n", 1);
-		} */
+		}
 
 		ft_write(1, "Testing ft_read with invalid file descriptor:\n", 48);
 		bytesRead = ft_read(42, buffer, sizeof(buffer) - 1);
@@ -121,7 +121,7 @@ int	main()
 		ft_write(1, "\n", 1);
 	}
 	{
-		char *dup = ft_strdup("");
+		char *dup = ft_strdup("Hello, World!");
 		if (dup) {
 			ft_write(1, "Duplicated string: ", 19);
 			printf("'%s'\n", dup);
@@ -131,7 +131,7 @@ int	main()
 		} else {
 			ft_write(1, "Error duplicating string.\n", 27);
 		}
-		dup = ft_strdup("Hey");
+		dup = ft_strdup(s1);
 		if (dup) {
 			ft_write(1, "Duplicated string: ", 19);
 			printf("'%s'\n", dup);
