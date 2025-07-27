@@ -24,9 +24,40 @@ This project is a recreation of some functions from the 42 libft, implemented in
 
 ## _CHEATSHEET_
 - **Registers**:
-    - `rax`: Used for 64-bits return values.
-    - `eax`: Used for 32-bits return values.
-    - `al`: Used for 8-bits return values.
+Summary table of the main 64-bit registers and their typical uses in NASM for Linux (System V AMD64 ABI):
+
+| Register | Name      | Typical Use (Linux x86-64)                | Notes                                 |
+|----------|-----------|-------------------------------------------|---------------------------------------|
+| rax      | Accumulator | Return value from functions, math ops   | Also used for syscall numbers         |
+| rbx      | Base      | Callee-saved (must be preserved)         | General purpose                       |
+| rcx      | Counter   | 4th function argument, loop counter      | Volatile, used in string/loop ops     |
+| rdx      | Data      | 3rd function argument                    | Volatile, also used for return value (with rax) in 128-bit returns |
+| rsi      | Source    | 2nd function argument, source pointer    | Volatile, used in string ops          |
+| rdi      | Destination | 1st function argument, dest pointer    | Volatile, used in string ops          |
+| rsp      | Stack Pointer | Stack pointer                        | Must always point to top of stack     |
+| rbp      | Base Pointer  | Frame pointer (optional)             | Callee-saved, used for stack frames   |
+| r8       |           | 5th function argument                    | Volatile                              |
+| r9       |           | 6th function argument                    | Volatile                              |
+| r10–r11  |           | Temporary, volatile                      | Not preserved across calls            |
+| r12–r15  |           | Callee-saved (must be preserved)         | General purpose                       |
+
+-**Function arguments (in order):**
+1. `rdi`
+2. `rsi`
+3. `rdx`
+4. `rcx`
+5. `r8`
+6. `r9`
+
+- **Return value:**  
+- `rax` (and `rdx:rax` for 128-bit values)
+
+- **Callee-saved:**  
+- `rbx`, `rbp`, `r12`, `r13`, `r14`, `r15` (must be preserved by your function if you use them)
+
+- **Caller-saved (volatile):**  
+- `rax`, `rcx`, `rdx`, `rsi`, `rdi`, `r8`, `r9`, `r10`, `r11`
+
 - **Calling Convention**:
     - Arguments are passed in registers: `rdi`, `rsi`, `rdx`, `rcx`, `r8`, `r9`. Additional arguments are passed on the stack.
     - Return values are returned in `rax` for 64-bits, `eax` for 32-bits, and `al` for 8-bits.

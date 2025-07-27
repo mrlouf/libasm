@@ -90,7 +90,7 @@ int	main()
 		char buffer[100];
 		ssize_t bytesRead;
 
-		ft_write(1, "Testing read:\n", 15);
+/* 		ft_write(1, "Testing read:\n", 15);
 		ft_write(1, "Enter some text: ", 17);
 		bytesRead = ft_read(0, buffer, sizeof(buffer) - 1);
 		if (bytesRead < 0) {
@@ -103,7 +103,7 @@ int	main()
 			printf("bytesRead: %zd\n", bytesRead);
 			printf("ft_write returned: %zd\n", res);
 			ft_write(1, "\n", 1);
-		}
+		} */
 
 		ft_write(1, "Testing ft_read with invalid file descriptor:\n", 48);
 		bytesRead = ft_read(42, buffer, sizeof(buffer) - 1);
@@ -124,7 +124,17 @@ int	main()
 		char *dup = ft_strdup("");
 		if (dup) {
 			ft_write(1, "Duplicated string: ", 19);
-			ft_write(1, dup, ft_strlen(dup));
+			printf("'%s'\n", dup);
+			ft_write(1, "\n", 1);
+			free(dup);
+			dup = NULL;
+		} else {
+			ft_write(1, "Error duplicating string.\n", 27);
+		}
+		dup = ft_strdup("Hey");
+		if (dup) {
+			ft_write(1, "Duplicated string: ", 19);
+			printf("'%s'\n", dup);
 			ft_write(1, "\n", 1);
 			free(dup);
 			dup = NULL;
