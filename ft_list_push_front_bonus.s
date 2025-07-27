@@ -13,7 +13,7 @@ section .text
 ;	*lst = new;
 
 ft_list_push_front:
-    mov rax, [rdi]          ; rax = *begin_list
+    mov rax, [rdi]          ; rax = *begin_list, rax serves as a temporary holder to switch rsi & rdi without losing data
     mov [rsi + 8], rax      ; new->next = *begin_list 
     mov [rdi], rsi          ; *begin_list = new
 	ret

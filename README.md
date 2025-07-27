@@ -24,6 +24,17 @@ This project is a recreation of some functions from the 42 libft, implemented in
     - Uses a direct call to malloc to allocate space needed for the new string. The length is calculated the same way strlen does, and the null-terminating byte is added.
     - Just like in C, it is essential to check whether malloc succeeded or not by checking the return value in `rax` register after the call.
 
+### _BONUS FUNCTIONS_
+- `ft_atoi_base`: TODO
+- `ft_list_push_front`: Push a node as a first element of a list. Key points:
+    - Handling double pointers in assembly: dereference a double pointer into a tmp register (`rax`) to access single pointer.
+    - Understand how structures are saved in the RAM and how to access each of their elements by calculating manually their offset.
+- `ft_list_size`: Calculate the size of a list, ie. how many nodes it contains. Key points:
+    - Navigating from the beginning of a list to its last node by dereferencing and accessing 'node->next', incrementing a counter for each iteration.
+- `ft_list_sort`: Sort all nodes from a list. Key points:
+    - Call a function passed as argument in `rsi` to the current node's data and the next one's. If not sorted, swap data and start the iteration from the beginning until the entire list is sorted.
+- `ft_remove_if`: TODO
+
 ## _CHEATSHEET_
 - **Registers**:
 Summary table of the main 64-bit registers and their typical uses in NASM for Linux (System V AMD64 ABI):
