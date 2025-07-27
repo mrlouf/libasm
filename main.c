@@ -3,13 +3,20 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-// Declaring the asm functions as extern
+// Declaring the asm functions as extern for the C compiler
 extern size_t	ft_strlen(char const *s);
 extern char*	ft_strcpy(char *dest, char const *src);
 extern int		ft_strcmp(char const *s1, char const *s2);
 extern ssize_t	ft_write(int fd, const void *buf, size_t count);
 extern ssize_t	ft_read(int fd, void *buf, size_t count);
 extern char*	ft_strdup(char const *s);
+
+// bonus functions
+extern int		ft_atoi_base(char const *str, char const *base);
+extern void 	ft_list_push_front(void **begin_list, void *data);
+extern int		ft_list_size(void *begin_list);
+extern void 	ft_list_sort(void **begin_list, int (*cmp)());
+extern void 	ft_list_remove_if(void **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)());
 
 char const		*s1 = "Hello";
 char			s2[20] = "World!";
@@ -132,6 +139,16 @@ int	main()
 			ft_write(1, "Error duplicating string.\n", 27);
 		}
 		dup = ft_strdup(s1);
+		if (dup) {
+			ft_write(1, "Duplicated string: ", 19);
+			printf("'%s'\n", dup);
+			ft_write(1, "\n", 1);
+			free(dup);
+			dup = NULL;
+		} else {
+			ft_write(1, "Error duplicating string.\n", 27);
+		}
+		dup = ft_strdup("");
 		if (dup) {
 			ft_write(1, "Duplicated string: ", 19);
 			printf("'%s'\n", dup);
