@@ -76,6 +76,7 @@ Summary table of the main 64-bit registers and their typical uses in NASM for Li
 
 ### _REFERENCES_
 - https://diveintosystems.org/singlepage/#_x64_assembly_chapter
+- Essential read to understand structures in assembly: https://diveintosystems.org/book/C7-x86_64/structs.html
 - https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf
 - https://www.tutorialspoint.com/assembly_programming/index.htm
 - https://gpfault.net/posts/asm-tut-0.txt.html

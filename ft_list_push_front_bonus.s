@@ -7,16 +7,13 @@ section .bss
 section .text
 	global ft_list_push_front
 
+
+; extern void 	ft_list_push_front(void **begin_list, void *new);
+;	new->next = *lst;
+;	*lst = new;
+
 ft_list_push_front:
-	xor rax, rax		; initialise the return value to 0 in rax = 64 bits/size_t
-	test rdi, rdi		; test for null-pointer
-	jz .exit			; exit if null-pointer
-
-.loop:
-    inc rax             ; count the starting node
-	mov rdi, [rdi + 8]	; and advance the memory address of the parameter by 8 bytes/64 bits
-    test rdi, rdi       ; test for null ptr
-	jnz .loop			; repeat iteration
-
-.exit:
+    mov rax, [rdi]          ; rax = *begin_list
+    mov [rsi + 8], rax      ; new->next = *begin_list 
+    mov [rdi], rsi          ; *begin_list = new
 	ret
