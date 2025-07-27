@@ -20,7 +20,9 @@ This project is a recreation of some functions from the 42 libft, implemented in
 - `ft_read`: Reads a string from the standard input. Key points:
     - Uses the `syscall` instruction to invoke the read system call, similarly to ft_write.
     - Handles errors by checking the return value and setting `errno` if necessary.
-- `ft_strdup`: Duplicates a string by allocating memory for it and copying the content.
+- `ft_strdup`: Duplicates a string by allocating memory for it and copying the content. Key points:
+    - Uses a direct call to malloc to allocate space needed for the new string. The length is calculated the same way strlen does, and the null-terminating byte is added.
+    - Just like in C, it is essential to check whether malloc succeeded or not by checking the return value in `rax` register after the call.
 
 ## _CHEATSHEET_
 - **Registers**:

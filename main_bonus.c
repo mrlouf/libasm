@@ -26,7 +26,7 @@ t_list *create_node(void *data) {
 }
 
 char		*s1 = "Hello";
-char		s2[20] = "World!";
+char		*s2 = "World!";
 char		*s3 = NULL;
 
 t_list *lst = NULL;
@@ -39,7 +39,13 @@ int	main()
         lst = create_node((void *) s1);
         size = ft_list_size(lst);
         printf("List size: %d\n", size);
-        
+        t_list *tmp = create_node((void *) s2);
+        tmp->next = lst;
+        lst = tmp;
+        size = ft_list_size(lst);
+        printf("List size: %d\n", size);
+        printf("First element: %s\n", (char *)lst->data);
+        printf("Second element: %s\n", (char *)lst->next->data);
     }
     return 0;
 }
