@@ -23,8 +23,15 @@ ft_atoi_base:
 .sign:              ; TODO: determine if res is neg or pos
 
 .loop:
-    mov dl, [rdi]   ;
-    cmp dl
+    sub dl, '0'         ; substract 48
+    cmp dl, 9           ;
+    ja .exit            ;
+    imul eax, eax, 10   ;
+    add eax, edx        ;
+    inc rdi             ;
+    mov dl, [rdi]       ;
+    cmp dl, 0           ;
+    jnz .loop           ;
 
 .exit:
     ret
