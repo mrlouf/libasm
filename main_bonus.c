@@ -69,9 +69,13 @@ int	main()
         printf("Second element: %s\n", (char *)lst->next->data); */
     }
     {
+        printf("Testing ft_atoi_base with null string:\n");
+        printf("%d\n", ft_atoi_base(NULL, "10"));
+        printf("Testing ft_atoi_base with empty string:\n");
+        printf("%d\n", ft_atoi_base("", "10"));
         printf("Testing ft_atoi_base with base 10:\n");
-        char *str1 = "12345";
-        printf("%d\n", ft_atoi_base(str1, "10"));
+        printf("%d\n", ft_atoi_base("1", "10"));
+
     }
     return 0;
 }

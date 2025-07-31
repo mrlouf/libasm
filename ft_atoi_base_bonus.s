@@ -12,4 +12,19 @@ section .text
 
 ft_atoi_base:
     xor eax, eax    ; initialise return value of = 0 in eax since we return an int
+    test rdi, rdi   ;
+    jz .exit        ;
+    test rdi, rdi,  ;
+    jz .exit        ;
+    mov dl, [rdi]   ;
+
+.spaces:            ; TODO: skip whitespaces
+
+.sign:              ; TODO: determine if res is neg or pos
+
+.loop:
+    mov dl, [rdi]   ;
+    cmp dl
+
+.exit:
     ret
