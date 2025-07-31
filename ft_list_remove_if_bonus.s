@@ -15,9 +15,9 @@ ft_list_remove_if:
     jz .exit            ;
 
 .compare:
-    mov rax, [rdi]      ; preserve rdi for later
+    mov rbx, [rdi]      ; preserve rdi for later
     mov rdi, rsi        ; rdi = data_ref
-    mov rsi, [rax]      ;
+    mov rsi, rbx        ; rsi = data from node
     call rdx            ; call cmp function once the arguments are set
     cmp rax, 0          ; if rax = 0, then we must remove node
     jne .next           ; skip and iterate over otherwise
@@ -25,9 +25,10 @@ ft_list_remove_if:
 .remove:
     mov rdi, [rdi]      ; set argument for the free function
     call rcx            ; no need to check return value since free() does not return
+                        ; TODO: link previous node to the next one, skipping the removed one, to keep the list linked
 
 .next:
-	mov rdi, [rdi + 8]	; advance the memory address of the parameter by 8 bytes/64 bits
+	mov rdi, [rbx + 8]	; advance the memory address of the parameter by 8 bytes/64 bits
     test rdi, rdi       ; test for null ptr
 	jnz .compare		; repeat comparison over next node
 

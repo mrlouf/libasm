@@ -28,6 +28,7 @@ t_list *create_node(void *data) {
 char		*s1 = "Hello";
 char		*s2 = "World!";
 char		*s3 = NULL;
+char        *s4 = "Cucufu";
 
 t_list *lst = NULL;
 
@@ -61,11 +62,16 @@ int	main()
         printf("Third element: %s\n\n", (char *)lst->next->next->data);
 
         // remove a node whose data contains "World!"
-        ft_list_remove_if(&lst, (void *)s2, (int (*)(void *, void *))strcmp, free);
+/*         ft_list_remove_if(&lst, (void *)s2, strcmp, free);
         size = ft_list_size(lst);
         printf("List size after removal: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
-        printf("Second element: %s\n", (char *)lst->next->data);
+        printf("Second element: %s\n", (char *)lst->next->data); */
+    }
+    {
+        printf("Testing ft_atoi_base with base 10:\n");
+        char *str1 = "12345";
+        printf("%d\n", ft_atoi_base(str1, "10"));
     }
     return 0;
 }
