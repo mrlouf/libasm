@@ -74,7 +74,7 @@ int	main()
         printf("Testing ft_atoi_base with empty string:\n");
         printf("%d\n", ft_atoi_base("", "10"));
         printf("Testing ft_atoi_base with base 10:\n");
-        printf("%d\n", ft_atoi_base("2147483648", "10"));
+        printf("%d\n", ft_atoi_base("-42", "10"));
 
     }
     return 0;

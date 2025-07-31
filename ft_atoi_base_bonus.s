@@ -11,27 +11,35 @@ section .text
 	global ft_atoi_base
 
 ft_atoi_base:
-    xor eax, eax    ; initialise return value of = 0 in eax since we return an int
-    test rdi, rdi   ;
-    jz .exit        ;
-    test rdi, rdi,  ;
-    jz .exit        ;
-    mov dl, [rdi]   ;
+    xor eax, eax        ; initialise return value of = 0 in eax since we return an int
+    xor ecx, ecx        ; initialise ecx to act as a sign register to multiply the end result without
+    inc ecx             ; ecx = 1
+    test rdi, rdi       ; test for null source
+    jz .exit            ;
+    test rdi, rdi,      ; test for null base
+    jz .exit            ;
+    mov dl, [rdi]       ;
 
-.spaces:            ; TODO: skip whitespaces
+.spaces:                ; TODO: skip whitespaces
 
-.sign:              ; TODO: determine if res is neg or pos
+.sign:                  ; TODO: handle multiple negative or positive signs
+    cmp dl, '-'         ; check for negative sign
+    jne .loop           ;
+    mov ecx, -1         ; ecx = -1
+    inc rdi             ; load next byte
+    mov dl, [rdi]       ;
 
 .loop:
     sub dl, '0'         ; substract 48
     cmp dl, 9           ;
-    ja .exit            ;
-    imul eax, eax, 10   ;
+    ja .exit            ; check if value is between 0-9, handling underflow/overflow
+    imul eax, eax, 10   ; multiply eax by 10 to make room for new digit otherwise
     add eax, edx        ;
-    inc rdi             ;
-    mov dl, [rdi]       ;
-    cmp dl, 0           ;
-    jnz .loop           ;
+    inc rdi             ; advance one byte into source str
+    mov dl, [rdi]       ; load the byte into dl
+    cmp dl, 0           ; check for end of string
+    jnz .loop           ; if not end, then loop again
 
 .exit:
+    imul eax, ecx       ;
     ret
