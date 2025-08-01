@@ -62,11 +62,12 @@ int	main()
         printf("Third element: %s\n\n", (char *)lst->next->next->data);
 
         // remove a node whose data contains "World!"
-/*         ft_list_remove_if(&lst, (void *)s2, strcmp, free);
+        ft_list_remove_if(&lst, (void *)s2, strcmp, free);
         size = ft_list_size(lst);
         printf("List size after removal: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
-        printf("Second element: %s\n", (char *)lst->next->data); */
+        printf("Second element: %s\n", (char *)lst->next->data);
+        printf("\n");
     }
     {
         printf("Testing ft_atoi_base with null string:\n");
