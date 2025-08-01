@@ -18,11 +18,21 @@ ft_atoi_base:
     jz .exit            ;
     test rdi, rdi,      ; test for null base
     jz .exit            ;
+
+.spaces:                ;
     mov dl, [rdi]       ;
+    cmp dl, ' '         ; check for normal space (ASCII 32)
+    je .skip_space      ;
+    sub dl, 9           ;
+    cmp dl, 4           ; 
+    ja .sign            ;
 
-.spaces:                ; TODO: skip whitespaces
+.skip_space:            ;
+    inc rdi             ;
+    jmp .spaces         ;
 
-.sign:                  ; TODO: handle multiple negative or positive signs
+.sign:                  ;
+    mov dl, [rdi]       ;
     cmp dl, '-'         ; check for negative sign
     jne .loop           ;
     mov ecx, -1         ; ecx = -1
