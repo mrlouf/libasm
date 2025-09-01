@@ -7,7 +7,7 @@ SRC				=	ft_strlen.s		\
 				ft_read.s			\
 				ft_strdup.s
 
-SRCDIR			=	./mandatory/
+SRCDIR			=	./mandatory
 SRCS			=	$(addprefix $(SRCDIR)/, $(SRC))
 
 SRC_BONUS		=	ft_atoi_base_bonus.s	\
@@ -16,7 +16,7 @@ SRC_BONUS		=	ft_atoi_base_bonus.s	\
 				ft_list_sort_bonus.s		\
 				ft_list_remove_if_bonus.s
 
-SRCDIR_BONUS	=	./bonus/
+SRCDIR_BONUS	=	./bonus
 SRCS_BONUS		=	$(addprefix $(SRCDIR_BONUS)/, $(SRC_BONUS))
 
 OBJDIR			= .obj
@@ -28,23 +28,23 @@ CFLAGS			= -Werror -Wextra -Wall
 
 all:	$(NAME)
 
+bonus:	test_bonus
+
 $(OBJDIR)/%.o:	%.s Makefile
 	mkdir -p $(@D)
 	nasm -f elf64 -g $< -o $@
 
-$(NAME): $(OBJS) Makefile $(SRCDIR)main.c
+$(NAME): $(OBJS) Makefile $(SRCDIR)/main.c
 	ar rcs $(NAME) $(OBJS)
-	gcc -g $(SRCDIR)main.c -L. $(OBJS) -o test
+	gcc -g $(SRCDIR)/main.c -L. $(OBJS) -o test
 
 $(OBJDIR)/%_bonus.o:	%_bonus.s Makefile
 	mkdir -p $(@D)
 	nasm -f elf64 -g $< -o $@
 
-bonus:	.bonus
-
-.bonus: $(OBJS_BONUS) Makefile $(SRCDIR_BONUS)main_bonus.c
+test_bonus: $(OBJS_BONUS) Makefile $(SRCDIR_BONUS)/main_bonus.c
 	ar rcs $(NAME) $(OBJS_BONUS)
-	gcc -g $(SRCDIR_BONUS)main_bonus.c -L. $(OBJS_BONUS) -o test_bonus
+	gcc -g $(SRCDIR_BONUS)/main_bonus.c -L. $(OBJS_BONUS) -o test_bonus
 
 clean:
 	/bin/rm -fr $(OBJDIR)
