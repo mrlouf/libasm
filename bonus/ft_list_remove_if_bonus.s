@@ -22,16 +22,23 @@ ft_list_remove_if:
     mov rbx, [r8]       ; rbx = current node
     test rbx, rbx       ; check for end of list
     jz .exit            ;
-    mov rdi, rbx        ; rdi = data_ref
+    mov rdi, [rbx]	    ; rdi = data_ref
     mov rsi, r12        ; rsi = data from node
     call r13            ; call cmp function once the arguments are set
     cmp rax, 0          ; if rax = 0, then we must remove node
     jne .next           ; skip and iterate over otherwise
 
 .remove:
-    mov rdi, [rbx]      ; set argument for the free function
-    call r14            ; no need to check return value since free() does not return
-                        ; TODO: link previous node to the next one, skipping the removed one, to keep the list linked
+    mov rdi, [rbx]      ; get node->data
+    call r14            ; call free(node->data)
+    
+    mov rax, [rbx + 8]  ; rax = current->next
+    mov [r8], rax       ; *current_ptr = current->next (unlink current node)
+    
+    mov rdi, rbx        ; prepare to free the node itself
+    call r14            ; free(current_node)
+    
+    jmp .compare        ; check the new node at this position
 
 .next:
 	lea r8, [rbx + 8]	; advance the memory address of the parameter by 8 bytes/64 bits

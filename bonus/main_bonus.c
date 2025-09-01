@@ -25,15 +25,15 @@ t_list *create_node(void *data) {
     return node;
 }
 
-char		*s1 = "Hello";
-char		*s2 = "World!";
-char		*s3 = NULL;
-char        *s4 = "Cucufu";
-
 t_list *lst = NULL;
 
 int	main()
 {
+	char		*s1 = strdup("Hello");
+	char		*s2 = strdup("World!");
+	char		*s3 = NULL;
+	char        *s4 = strdup("Cucufu");
+
     {
         int size = ft_list_size(lst);
         printf("List size: %d\n\n", size);
