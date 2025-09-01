@@ -16,15 +16,43 @@ ft_atoi_base:
     inc ecx             ; ecx = 1
     test rdi, rdi       ; test for null source
     jz .exit            ;
-    test rdi, rdi,      ; test for null base
+    test rsi, rsi       ; test for null base
     jz .exit            ;
+    push rdi            ; save str pointer
+    mov rdi, rsi        ; rdi = base string for length counting
+    xor r8, r8          ; r8 will hold base length
+
+.base_len_loop:
+    mov al, [rdi + r8]  ; load character from base
+    cmp al, 0           ; check for null terminator
+    je .base_len_done   ; if null, we're done counting
+
+    cmp al, '+'
+    je .exit_invalid    ; invalid base
+    cmp al, '-'
+    je .exit_invalid    ; invalid base
+    cmp al, ' '
+    je .exit_invalid    ; invalid base
+    cmp al, 9           ; check for tab
+    je .exit_invalid    ; invalid base
+    
+    inc r8              ; increment base length
+    jmp .base_len_loop
+
+.base_len_done:
+    cmp r8, 2           ; base must be at least 2
+    jb .exit_invalid    ; if less than 2, invalid
+    
+    pop rdi             ; restore str pointer
+                        ; r8 now contains the base length
+                        ; rsi still points to base string
 
 .spaces:                ;
     mov dl, [rdi]       ;
     cmp dl, ' '         ; check for normal space (ASCII 32)
     je .skip_space      ;
     sub dl, 9           ;
-    cmp dl, 4           ; 
+    cmp dl, 4           ;
     ja .sign            ;
 
 .skip_space:            ;
@@ -40,6 +68,9 @@ ft_atoi_base:
     mov dl, [rdi]       ;
 
 .loop:
+                        ; TODO: Here you'll need to change this to work with any base
+                        ; Instead of sub dl, '0' and cmp dl, 9
+                        ; You'll need to find the index of dl in the base string
     sub dl, '0'         ; substract 48
     cmp dl, 9           ;
     ja .exit            ; check if value is between 0-9, handling underflow/overflow
@@ -52,4 +83,9 @@ ft_atoi_base:
 
 .exit:
     imul eax, ecx       ;
+    ret
+
+.exit_invalid:
+    pop rdi             ; clean up stack in case something was pushed
+    xor eax, eax        ; return 0 for invalid base
     ret

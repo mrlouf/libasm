@@ -22,7 +22,7 @@ ft_list_remove_if:
     mov rbx, [r8]       ; rbx = current node
     test rbx, rbx       ; check for end of list
     jz .exit            ;
-    mov rdi, [rbx]	    ; rdi = data_ref
+    mov rdi, rbx        ; rdi = data_ref
     mov rsi, r12        ; rsi = data from node
     call r13            ; call cmp function once the arguments are set
     cmp rax, 0          ; if rax = 0, then we must remove node
