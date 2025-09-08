@@ -31,26 +31,26 @@ all:	$(NAME)
 bonus:	test_bonus
 
 $(OBJDIR)/%.o:	%.s Makefile
-	mkdir -p $(@D)
-	nasm -f elf64 -g $< -o $@
+	@mkdir -p $(@D)
+	@nasm -f elf64 -g $< -o $@
 
 $(NAME): $(OBJS) Makefile $(SRCDIR)/main.c
-	ar rcs $(NAME) $(OBJS)
-	gcc -g $(SRCDIR)/main.c -L. $(OBJS) -o test
+	@ar rcs $(NAME) $(OBJS)
+	@gcc -g $(SRCDIR)/main.c -L. $(OBJS) -o test
 
 $(OBJDIR)/%_bonus.o:	%_bonus.s Makefile
-	mkdir -p $(@D)
-	nasm -f elf64 -g $< -o $@
+	@mkdir -p $(@D)
+	@nasm -f elf64 -g $< -o $@
 
 test_bonus: $(OBJS_BONUS) Makefile $(SRCDIR_BONUS)/main_bonus.c
-	ar rcs $(NAME) $(OBJS_BONUS)
-	gcc -g $(SRCDIR_BONUS)/main_bonus.c -L. $(OBJS_BONUS) -o test_bonus
+	@ar rcs $(NAME) $(OBJS_BONUS)
+	@gcc -g $(SRCDIR_BONUS)/main_bonus.c -L. $(OBJS_BONUS) -o test_bonus
 
 clean:
-	/bin/rm -fr $(OBJDIR)
+	@/bin/rm -fr $(OBJDIR)
 
 fclean:	clean
-	/bin/rm -f $(NAME) test test_bonus
+	@/bin/rm -f $(NAME) test test_bonus
 
 re:	fclean all
 

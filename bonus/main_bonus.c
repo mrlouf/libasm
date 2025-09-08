@@ -16,7 +16,7 @@ extern int		ft_list_size(t_list *begin_list);
 extern void 	ft_list_sort(t_list **begin_list, int (*cmp)());
 extern void 	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)());
 
-// utils functions to create lists
+// utils function to create lists
 t_list *create_node(void *data) {
     t_list *node = malloc(sizeof(t_list));
     if (!node) return NULL;
@@ -29,10 +29,10 @@ t_list *lst = NULL;
 
 int	main()
 {
-	char		*s1 = strdup("Hello");
-	char		*s2 = strdup("World!");
+	char		*s1 = strdup("1");
+	char		*s2 = strdup("2");
 	char		*s3 = NULL;
-	char        *s4 = strdup("Cucufu");
+	char        *s4 = strdup("3");
 
     {
         int size = ft_list_size(lst);
@@ -53,13 +53,22 @@ int	main()
         printf("Second element: %s\n\n", (char *)lst->next->data);
 
         // add a third node
-        new = create_node((void *) s3);
+        new = create_node((void *) s4);
         ft_list_push_front(&lst, new);
         size = ft_list_size(lst);
         printf("List size: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
         printf("Second element: %s\n", (char *)lst->next->data);
         printf("Third element: %s\n\n", (char *)lst->next->next->data);
+
+        ft_list_sort(&lst, (int (*)())strcmp);
+        printf("List after sorting:\n");
+        t_list *current = lst;
+        while (current) {
+            printf("%s\n", (char *)current->data);
+            current = current->next;
+        }
+        printf("\n");
 
         // remove a node whose data contains "World!"
         ft_list_remove_if(&lst, (void *)s2, strcmp, free);
