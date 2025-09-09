@@ -22,18 +22,24 @@ This project is a recreation of some functions from the 42 libft, implemented in
     - Handles errors by checking the return value and setting `errno` if necessary.
 - `ft_strdup`: Duplicates a string by allocating memory for it and copying the content. Key points:
     - Uses a direct call to malloc to allocate space needed for the new string. The length is calculated the same way strlen does, and the null-terminating byte is added.
-    - Just like in C, it is essential to check whether malloc succeeded or not by checking the return value in `rax` register after the call.
+    - Just like in C, it is essential to check whether malloc succeeded or not by checking the return value in `rax` register after the call and setting `errno` if necessary.
 
 ### _BONUS FUNCTIONS_
-- `ft_atoi_base`: TODO
-- `ft_list_push_front`: Push a node as a first element of a list. Key points:
+- `ft_atoi_base`: Convert a string representing a number in a given base to an integer. Key points:
+    - Validate the base string to ensure it contains at least two unique characters and does not include '+' or '-'.
+    - Handle leading whitespace and optional '+' or '-' signs in the input string.
+    - Convert the string to an integer by iterating through each character, finding its index in the base string, and accumulating the result while considering the sign.
+- `ft_list_push_front`: Create a new node using `malloc` and push it as the first element of a list. Key points:
     - Handling double pointers in assembly: dereference a double pointer into a tmp register (`rax`) to access single pointer.
     - Understand how structures are saved in the RAM and how to access each of their elements by calculating manually their offset.
 - `ft_list_size`: Calculate the size of a list, ie. how many nodes it contains. Key points:
     - Navigating from the beginning of a list to its last node by dereferencing and accessing 'node->next', incrementing a counter for each iteration.
 - `ft_list_sort`: Sort all nodes from a list. Key points:
     - Call a function passed as argument in `rsi` to the current node's data and the next one's. If not sorted, swap data and start the iteration from the beginning until the entire list is sorted.
-- `ft_remove_if`: TODO
+- `ft_remove_if`: Remove all nodes from a list that match a given value. Key points:
+    - Iterate through the list, comparing each node's data with the value to remove.
+    - If a match is found, remove the node and free its memory.
+    - Update the list head if necessary.
 
 ## _CHEATSHEET_
 - **Registers**:
