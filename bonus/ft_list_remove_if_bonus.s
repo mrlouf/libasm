@@ -19,10 +19,10 @@ ft_list_remove_if:
     mov r14, rcx        ; save free function in r14
 
 .compare:
-    mov rbx, [r8]       ; rbx = current node
+    mov rbx, [r8]       ; rbx = lst*
     test rbx, rbx       ; check for end of list
     jz .exit            ;
-    mov rdi, rbx        ; rdi = data_ref
+    mov rdi, [rbx]      ; rdi = data_ref
     mov rsi, r12        ; rsi = data from node
     call r13            ; call cmp function once the arguments are set
     cmp rax, 0          ; if rax = 0, then we must remove node

@@ -8,9 +8,8 @@ section .text
 	global ft_list_push_front
 
 
-; extern void 	ft_list_push_front(void **begin_list, void *new);
-;	new->next = *lst;
-;	*lst = new;
+; extern void ft_list_push_front(t_list **begin_list, void *data);
+;										rdi				rsi
 
 ft_list_push_front:
     mov rax, [rdi]          ; rax = *begin_list, rax serves as a temporary holder to switch rsi & rdi without losing data

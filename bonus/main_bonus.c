@@ -11,7 +11,7 @@ typedef struct s_list {
 
 // bonus functions (prototypes are from the Piscine's subject)
 extern int		ft_atoi_base(char const *str, char const *base);
-extern void 	ft_list_push_front(t_list **begin_list, t_list *new);
+extern void		ft_list_push_front(t_list **begin_list, void *data);
 extern int		ft_list_size(t_list *begin_list);
 extern void 	ft_list_sort(t_list **begin_list, int (*cmp)());
 extern void 	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)());
@@ -33,12 +33,17 @@ int	cmp(char *a, char *b)
 	return (*a > *b ? 1 : 0);
 }
 
+int	cmp2(const char *s1, const char *s2)
+{
+	return (strcmp(s1, s2) == 0 ? 0 : 1);
+}
+
 int	main()
 {
-	char		*s1 = strdup("1");
-	char		*s2 = strdup("0");
+	char		*s1 = strdup("5");
+	char		*s2 = strdup("9");
 	char        *s3 = strdup("3");
-	char		*s4 = strdup("2");
+	char		*s4 = strdup("8");
 
 	char		*nullstr = "NULL";
 
@@ -88,11 +93,14 @@ int	main()
         printf("\n");
 
         // remove a node whose data contains "World!"
-        ft_list_remove_if(&lst, (void *)nullstr, &strcmp, &free);
+        ft_list_remove_if(&lst, (void *)s4, &cmp2, &free);
         size = ft_list_size(lst);
         printf("List size after removal: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
         printf("Second element: %s\n", (char *)lst->next->data);
+		printf("Third element: %s\n", (char *)lst->next->next->data);
+		if (lst->next->next->next)
+			printf("Fourth element: %s\n", (char *)lst->next->next->next->data);
         printf("\n");
     }
     {

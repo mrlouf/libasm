@@ -28,13 +28,13 @@ ft_atoi_base:
     je .base_len_done   ; if null, we're done counting
 
     cmp al, '+'
-    je .exit_invalid    ; invalid base
+    je .exit_invalid    ;
     cmp al, '-'
-    je .exit_invalid    ; invalid base
+    je .exit_invalid    ;
     cmp al, ' '
-    je .exit_invalid    ; invalid base
-    cmp al, 9           ; check for tab
-    je .exit_invalid    ; invalid base
+    je .exit_invalid    ;
+    cmp al, 9           ; check for '\t'
+    je .exit_invalid    ;
     
     inc r8              ; increment base length
     jmp .base_len_loop
