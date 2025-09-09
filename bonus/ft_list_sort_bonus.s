@@ -12,44 +12,38 @@
 ;                       rdi                     rsi
 
 section .text
-	global ft_list_sort
+    global ft_list_sort
 
 ft_list_sort:
-    test rdi, rdi       ; usual null-pointer-check if lst is NULL
-    jz .exit            ;
-    mov r8, rdi         ; save lst pointer in r8
-    mov r12, rsi        ; save strcmp in r12
-
-.getdata:
-    mov rbx, [r8]       ; rbx = current node
-    test rbx, rbx       ; check for end of list
+    test rdi, rdi
     jz .exit
+    mov r8, [rdi]           ; r8 = *lst (head)
+    test r8, r8
+    jz .exit                ; if list is empty, exit
+	mov r12, rsi			; r12 = cmp
 
-    mov r13, [rbx + 8]   ; r13 = next_node
-    test r13, r13
-    jz .exit
+.start:
+    mov rbx, r8             ; rbx = first node
+    mov r13, [rbx + 8]      ; r13 = second node (first->next)
+    cmp qword r13, 0
+    jz .exit                ; if only one node, exit
 
 .compare:
-    mov rdi, [rbx]      ;
-    mov rsi, [r13]      ;
-    call r12            ; strcmp(current->data, current->next->data)
-    cmp rax, 0          ;
-    jle .next           ; if (result < 0), continue to next nodes
+	mov rdi, [rbx]			;
+	mov rsi, [r13]			;
+	call r12				;
+	cmp rax, 0				;
+	jle .next				;
 
 .swap:
-    
-    mov rax, [rbx]      ;
-    push rax            ; use the stack to keep the node temporarily
-    mov rax, [r13]      ;
-    mov [rbx], rax      ;
-    pop rax             ;
-    mov [r13], rax      ;
-
-    jmp .getdata        ; start again from the beginning (bubble sort)
+    mov rax, [rbx]          ; rax = first->data
+    mov rcx, [r13]          ; rcx = second->data
+    mov [rbx], rcx          ; first->data = second->data
+    mov [r13], rax          ; second->data = first->data
 
 .next:
-	mov r8, r13         ; r13 is the next node pointer
-    jmp .getdata
+	mov r8, r13				;
+	jmp .start
 
 .exit:
-	ret
+    ret

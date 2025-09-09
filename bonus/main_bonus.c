@@ -31,8 +31,10 @@ int	main()
 {
 	char		*s1 = strdup("1");
 	char		*s2 = strdup("2");
-	char		*s3 = NULL;
-	char        *s4 = strdup("3");
+	char        *s3 = strdup("3");
+	char		*s4 = strdup("4");
+
+	char		*nullstr = "NULL";
 
     {
         int size = ft_list_size(lst);
@@ -53,7 +55,7 @@ int	main()
         printf("Second element: %s\n\n", (char *)lst->next->data);
 
         // add a third node
-        new = create_node((void *) s4);
+        new = create_node((void *) s3);
         ft_list_push_front(&lst, new);
         size = ft_list_size(lst);
         printf("List size: %d\n", size);
@@ -61,17 +63,26 @@ int	main()
         printf("Second element: %s\n", (char *)lst->next->data);
         printf("Third element: %s\n\n", (char *)lst->next->next->data);
 
+       // add a fourth node
+        new = create_node((void *) s4);
+        ft_list_push_front(&lst, new);
+        size = ft_list_size(lst);
+        printf("List size: %d\n", size);
+        printf("First element: %s\n", (char *)lst->data);
+        printf("Second element: %s\n", (char *)lst->next->data);
+        printf("Third element: %s\n", (char *)lst->next->next->data);
+		printf("Fourth element: %s\n\n", (char *)lst->next->next->next->data);
+
         ft_list_sort(&lst, (int (*)())strcmp);
         printf("List after sorting:\n");
-        t_list *current = lst;
-        while (current) {
-            printf("%s\n", (char *)current->data);
-            current = current->next;
-        }
+		printf("%s\n", (char *)lst->data);
+        printf("%s\n", (char *)lst->next->data);
+        printf("%s\n", (char *)lst->next->next->data);
+		printf("%s\n", (char *)lst->next->next->next->data);
         printf("\n");
 
         // remove a node whose data contains "World!"
-        ft_list_remove_if(&lst, (void *)s2, strcmp, free);
+        ft_list_remove_if(&lst, (void *)nullstr, strcmp, free);
         size = ft_list_size(lst);
         printf("List size after removal: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
