@@ -68,18 +68,28 @@ ft_atoi_base:
     mov dl, [rdi]       ;
 
 .loop:
-                        ; TODO: Here you'll need to change this to work with any base
-                        ; Instead of sub dl, '0' and cmp dl, 9
-                        ; You'll need to find the index of dl in the base string
-    sub dl, '0'         ; substract 48
-    cmp dl, 9           ;
-    ja .exit            ; check if value is between 0-9, handling underflow/overflow
-    imul eax, eax, 10   ; multiply eax by 10 to make room for new digit otherwise
-    add eax, edx        ;
-    inc rdi             ; advance one byte into source str
-    mov dl, [rdi]       ; load the byte into dl
-    cmp dl, 0           ; check for end of string
-    jnz .loop           ; if not end, then loop again
+    mov dl, [rdi]       ; load current character from input string
+    cmp dl, 0
+    je .exit            ; end of string
+
+    xor r9, r9          ; r9 = digit index (start at 0)
+    
+.find_digit:
+    cmp r9, r8          ; r8 = base length
+    jge .exit           ; not found in base, stop parsing
+
+    mov bl, [rsi + r9]  ; load base[r9]
+    cmp dl, bl
+    je .digit_found
+
+    inc r9
+    jmp .find_digit
+
+.digit_found:
+    imul eax, r8d       ; result *= base_length
+    add eax, r9d        ; result += digit value
+    inc rdi             ; move to next char in input
+    jmp .loop
 
 .exit:
     imul eax, ecx       ;

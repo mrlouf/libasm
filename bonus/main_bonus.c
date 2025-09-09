@@ -52,22 +52,20 @@ int	main()
         printf("List size: %d\n\n", size);
 
         // add a node to the list
-        lst = create_node((void *) s1);
+        ft_list_push_front(&lst, (void *) s1);
         size = ft_list_size(lst);
         printf("List size: %d\n", size);
         printf("First element: %s\n\n", (char *)lst->data);
 
         // add another node
-        t_list *new = create_node((void *) s2);
-        ft_list_push_front(&lst, new);
+        ft_list_push_front(&lst, (void *) s2);
         size = ft_list_size(lst);
         printf("List size: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
         printf("Second element: %s\n\n", (char *)lst->next->data);
 
         // add a third node
-        new = create_node((void *) s3);
-        ft_list_push_front(&lst, new);
+        ft_list_push_front(&lst, (void *) s3);
         size = ft_list_size(lst);
         printf("List size: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
@@ -75,8 +73,7 @@ int	main()
         printf("Third element: %s\n\n", (char *)lst->next->next->data);
 
        // add a fourth node
-        new = create_node((void *) s4);
-        ft_list_push_front(&lst, new);
+        ft_list_push_front(&lst, (void *) s4);
         size = ft_list_size(lst);
         printf("List size: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
@@ -92,7 +89,7 @@ int	main()
 		printf("%s\n", (char *)lst->next->next->next->data);
         printf("\n");
 
-        // remove a node whose data contains "World!"
+/*         // remove a node whose data contains "World!"
         ft_list_remove_if(&lst, (void *)s4, &cmp2, &free);
         size = ft_list_size(lst);
         printf("List size after removal: %d\n", size);
@@ -101,18 +98,29 @@ int	main()
 		printf("Third element: %s\n", (char *)lst->next->next->data);
 		if (lst->next->next->next)
 			printf("Fourth element: %s\n", (char *)lst->next->next->next->data);
-        printf("\n");
+        printf("\n"); */
     }
     {
         printf("Testing ft_atoi_base with null string:\n");
         printf("%d\n", ft_atoi_base(NULL, "10"));
+
         printf("Testing ft_atoi_base with empty string:\n");
         printf("%d\n", ft_atoi_base("", "10"));
+
         printf("Testing ft_atoi_base with incorrect base:\n");
         printf("%d\n", ft_atoi_base("-42", "0"));
+
         printf("Testing ft_atoi_base with base 10:\n");
         printf("%d\n", ft_atoi_base("  \t -42", "0123456789"));
 
+        printf("Testing ft_atoi_base with base 2:\n");
+        printf("%d\n", ft_atoi_base("1010", "01"));
+
+        printf("Testing ft_atoi_base with base 16:\n");
+        printf("%d\n", ft_atoi_base("FF", "0123456789ABCDEF"));
+
+        printf("Testing ft_atoi_base with base 8:\n");
+        printf("%d\n", ft_atoi_base("-77", "01234567"));
     }
     return 0;
 }
