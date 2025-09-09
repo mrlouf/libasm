@@ -1,48 +1,88 @@
 section .data
-; where you declare constant values, file names, buffer size, etc.
 
 section .bss
-; where you declare variables used in the program/function.
 
 ;         ft_list_remove_if(&lst, (void *)s2, (int (*)(void *, void *))strcmp, free);
 ;                           rdi     rsi                             rdx         rcx
 
 section .text
 	global ft_list_remove_if
+    extern free
 
 ft_list_remove_if:
-    test rdi, rdi       ; usual null-pointer-check if lst is NULL
-    jz .exit            ;
-    mov r8, rdi         ; save original lst pointer in r8
-    mov r12, rsi        ; save data_ref in r12
-    mov r13, rdx        ; save cmp function in r13
-    mov r14, rcx        ; save free function in r14
+    push r12
+    push r13
+    push r14
+    push r15
+    mov r12, rdi            ; reassigning registers to not push / pop everywhere
+    mov r13, rsi
+    mov r14, rdx
+    mov r15, rcx
+    mov rdx, [rdi]          ; rdx current node, ** dereferencing
+    mov rcx, 0              ; previous node is null by default
 
-.compare:
-    mov rbx, [r8]       ; rbx = lst*
-    test rbx, rbx       ; check for end of list
-    jz .exit            ;
-    mov rdi, [rbx]      ; rdi = data_ref
-    mov rsi, r12        ; rsi = data from node
-    call r13            ; call cmp function once the arguments are set
-    cmp rax, 0          ; if rax = 0, then we must remove node
-    jne .next           ; skip and iterate over otherwise
+.loop:
+    cmp rdx, 0              ; if current node is null, exit
+    je .exit
+    mov rdi, [rdx]          ; rdi = current->data
+    mov rsi, r13            ; rsi = data_ref
+    push rdx                ; not callee-safe registers push
+    push rcx                ;
+    call r14                ; compare
+    pop rcx
+    pop rdx
+    cmp rax, 0              ; check if the data matches
+    jne .loop_skip          ; if it is not, then skip
 
-.remove:
-    mov rdi, [rbx]      ; get node->data
-    call r14            ; call free(node->data)
-    
-    mov rax, [rbx + 8]  ; rax = current->next
-    mov [r8], rax       ; *current_ptr = current->next (unlink current node)
-    
-    mov rdi, rbx        ; prepare to free the node itself
-    call r14            ; free(current_node)
-    
-    jmp .compare        ; check the new node at this position
+    cmp rdx, [r12]          ; data is same, is it head node?
+    je .free_head           ; if head node, we need to update head ptr
 
-.next:
-	lea r8, [rbx + 8]	; advance the memory address of the parameter by 8 bytes/64 bits
-	jmp .compare		; repeat comparison over next node
+    mov rdi, [rdx + 8]      ; rdi: current->next
+    mov [rcx + 8], rdi      ; prev->next = current->next
+    mov rdi, [rdx]          ; rdi is current->data
+    push rcx
+    push rdx
+    test r15, r15           ; check if r15 (free function pointer) is not null
+    je .skip_free_data
+    call r15                ; free current->data
+
+.skip_free_data:
+    pop rdx
+    mov rdi, rdx            ; free current
+    call free wrt ..plt
+    pop rcx
+    mov rdx, [rcx + 8]      ; not changing previous, only current
+    jmp .loop
+
+.loop_skip:
+    mov rcx, rdx
+    mov rdx, [rdx + 8]
+    jmp .loop
+
+.free_head:
+    mov rdi, [rdx + 8]
+    mov [r12], rdi
+    mov rdi, [rdx]
+
+    push rdx
+    push rcx
+    call r15                ; free(current->data)
+    pop rcx
+    pop rdx
+
+    mov rdi, rdx
+    push rcx
+    push rdx
+    call free wrt ..plt     ; free(current)
+    pop rdx
+    pop rcx
+
+    mov rdx, [r12]
+    jmp .loop
 
 .exit:
-	ret
+    pop r15
+    pop r14
+    pop r13
+    pop r12
+    ret
