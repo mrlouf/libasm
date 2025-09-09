@@ -27,6 +27,12 @@ t_list *create_node(void *data) {
 
 t_list *lst = NULL;
 
+// Helper function to test ft_list_sort()
+int	cmp(char *a, char *b)
+{
+	return (*a > *b ? 1 : 0);
+}
+
 int	main()
 {
 	char		*s1 = strdup("1");
@@ -73,7 +79,7 @@ int	main()
         printf("Third element: %s\n", (char *)lst->next->next->data);
 		printf("Fourth element: %s\n\n", (char *)lst->next->next->next->data);
 
-        ft_list_sort(&lst, &strcmp);
+        ft_list_sort(&lst, &cmp);
         printf("List after sorting:\n");
 		printf("%s\n", (char *)lst->data);
         printf("%s\n", (char *)lst->next->data);
