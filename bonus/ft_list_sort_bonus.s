@@ -20,6 +20,7 @@ ft_list_sort:
     mov r8, [rdi]           ; r8 = *lst (head)
     test r8, r8
     jz .exit                ; if list is empty, exit
+	mov r15, r8				; r15 = *lst
 	mov r12, rsi			; r12 = cmp
 
 .start:
@@ -40,6 +41,9 @@ ft_list_sort:
     mov rcx, [r13]          ; rcx = second->data
     mov [rbx], rcx          ; first->data = second->data
     mov [r13], rax          ; second->data = first->data
+
+	mov r8, r15				; go back to the head of list
+	jmp .start
 
 .next:
 	mov r8, r13				;

@@ -30,9 +30,9 @@ t_list *lst = NULL;
 int	main()
 {
 	char		*s1 = strdup("1");
-	char		*s2 = strdup("2");
+	char		*s2 = strdup("0");
 	char        *s3 = strdup("3");
-	char		*s4 = strdup("4");
+	char		*s4 = strdup("2");
 
 	char		*nullstr = "NULL";
 
@@ -73,7 +73,7 @@ int	main()
         printf("Third element: %s\n", (char *)lst->next->next->data);
 		printf("Fourth element: %s\n\n", (char *)lst->next->next->next->data);
 
-        ft_list_sort(&lst, (int (*)())strcmp);
+        ft_list_sort(&lst, &strcmp);
         printf("List after sorting:\n");
 		printf("%s\n", (char *)lst->data);
         printf("%s\n", (char *)lst->next->data);
@@ -82,7 +82,7 @@ int	main()
         printf("\n");
 
         // remove a node whose data contains "World!"
-        ft_list_remove_if(&lst, (void *)nullstr, strcmp, free);
+        ft_list_remove_if(&lst, (void *)nullstr, &strcmp, &free);
         size = ft_list_size(lst);
         printf("List size after removal: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
