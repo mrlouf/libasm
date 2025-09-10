@@ -16,7 +16,7 @@ section .text
 ft_list_push_front:
     push rdi                ; rdi => stack
     push rsi                ; rsi => stack
-    mov rdi, 16             ; 16 bit for void *data and *next
+    mov rdi, 16             ; 16 bit for (void *)data and (lst *)next
 
     call malloc wrt ..plt   ; allocate rax
     pop rsi                 ; rsi <= stack
@@ -34,7 +34,6 @@ error:
     neg rax                             ; rax = -error_code
     mov rdi, rax                        ; save error_code before it is overwritten by errno call
     call __errno_location wrt ..plt     ; call errno via Procedure Linkage Table (PLT) instead of via absolute address (against PIE)
-    call __errno_location wrt ..plt
     ret
 
 .exit:

@@ -24,7 +24,7 @@ OBJDIR			= .obj
 OBJS			= $(addprefix $(OBJDIR)/, $(SRCS:.s=.o))
 OBJS_BONUS		= $(addprefix $(OBJDIR)/, $(SRCS_BONUS:.s=.o))
 
-CFLAGS			= -Werror -Wextra -Wall
+CFLAGS			= -Werror -Wextra -Wall -fsanitize=undefined
 
 all:	$(NAME)
 

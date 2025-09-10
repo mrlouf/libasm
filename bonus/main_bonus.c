@@ -99,6 +99,16 @@ int	main()
 		if (lst->next->next->next)
 			printf("Fourth element: %s\n", (char *)lst->next->next->next->data);
         printf("\n");
+
+
+		// free the list
+		while (lst)
+		{	
+			t_list *tmp = lst;
+			lst = lst->next;
+			free(tmp->data);
+			free(tmp);
+		}
     }
     {
         printf("Testing ft_atoi_base with null string:\n");

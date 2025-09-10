@@ -18,13 +18,13 @@ ft_list_remove_if:
     mov r13, rsi
     mov r14, rdx
     mov r15, rcx
-    mov rdx, [rdi]          ; rdx current node, ** dereferencing
-    mov rcx, 0              ; previous node is null by default
+    mov rdx, [rdi]          ; rdx = current (dereferencing **lst)
+    mov rcx, 0              ; rcs = previous node = null by default
 
 .loop:
     cmp rdx, 0              ; if current node is null, exit
     je .exit
-    mov rdi, [rdx]          ; rdi = current->data
+    mov rdi, [rdx]          ; rdi = current->data (dereferencing *lst)
     mov rsi, r13            ; rsi = data_ref
     push rdx                ; not callee-safe registers push
     push rcx                ;
@@ -32,11 +32,13 @@ ft_list_remove_if:
     pop rcx
     pop rdx
     cmp rax, 0              ; check if the data matches
-    jne .loop_skip          ; if it is not, then skip
+    jne .loop_skip          ; if not, then skip
 
     cmp rdx, [r12]          ; data is same, is it head node?
     je .free_head           ; if head node, we need to update head ptr
+							; else prepare to free current->data, then current
 
+							; rewire previous->next so that it points to current->next
     mov rdi, [rdx + 8]      ; rdi: current->next
     mov [rcx + 8], rdi      ; prev->next = current->next
     mov rdi, [rdx]          ; rdi is current->data
@@ -45,6 +47,7 @@ ft_list_remove_if:
     test r15, r15           ; check if r15 (free function pointer) is not null
     je .skip_free_data
     call r15                ; free current->data
+							; free does not return any value, so ignore rax after the call
 
 .skip_free_data:
     pop rdx
@@ -55,7 +58,7 @@ ft_list_remove_if:
     jmp .loop
 
 .loop_skip:
-    mov rcx, rdx
+    mov rcx, rdx			; advance the list, one node at the time
     mov rdx, [rdx + 8]
     jmp .loop
 
