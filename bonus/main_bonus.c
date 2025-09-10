@@ -35,6 +35,7 @@ int	cmp(char *a, char *b)
 
 int	cmp2(const char *s1, const char *s2)
 {
+	if (!s1 || !s2) return 1;
 	return (strcmp(s1, s2) == 0 ? 0 : 1);
 }
 
@@ -44,8 +45,6 @@ int	main()
 	char		*s2 = strdup("9");
 	char        *s3 = strdup("3");
 	char		*s4 = strdup("8");
-
-	char		*nullstr = "NULL";
 
     {
         int size = ft_list_size(lst);
