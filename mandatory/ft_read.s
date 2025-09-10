@@ -8,6 +8,8 @@ section .text
 	global ft_read
     extern __errno_location
 
+; rdi = fd, rsi = buf, rdx = count
+
 ft_read:
 	mov rax, 0              ; syscall number for read
                             ; no need to mov rdi, rsi and rdx since they are set by the caller (main.c)

@@ -45,7 +45,7 @@ ft_strdup:
     mov rdi, rax                        ; save error_code before it is overwritten by errno call
     call __errno_location wrt ..plt     ; call errno via Procedure Linkage Table (PLT) instead of via absolute address (against PIE)
     mov [rax], rdi                      ; 
-    mov rax, -1                         ; return -1 to caller to indicate failure
+    mov rax, 0                         	; return 0 to caller to indicate failure
     pop rbx
     ret
 

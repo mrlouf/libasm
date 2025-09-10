@@ -7,6 +7,9 @@ section .bss
 section .text
 	global ft_strcpy
 
+; rdi = dest, rsi = src
+; returns: rax = dest
+
 ft_strcpy:
 	mov rax, rdi		; initialise the return value to dest
 

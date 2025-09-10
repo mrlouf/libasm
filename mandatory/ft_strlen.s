@@ -7,6 +7,9 @@ section .bss
 section .text
 	global ft_strlen
 
+; rdi = pointer to string
+; returns: rax = length
+
 ft_strlen:
 	mov rax, 0			; initialise the return value to 0 in rax = 64 bits/size_t
 	test rdi, rdi		; test for null-pointer

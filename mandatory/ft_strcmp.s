@@ -9,6 +9,10 @@ section .text
 
 ft_strcmp:
 
+;	rdi = char const *s1, rsi = char const *s2
+;	strcmp does NOT check for NULL pointers, which can cause undefined behaviour
+;	this implementation of ft_strcmp mimics this behaviour, as allowed by the subject.
+
 .loop:
 	mov al, [rdi]		; copy character from arg1 into 8-bit register AL
     mov dl, [rsi]       ; do the same for arg2
