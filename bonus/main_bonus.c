@@ -89,7 +89,7 @@ int	main()
 		printf("%s\n", (char *)lst->next->next->next->data);
         printf("\n");
 
-        // remove a node whose data contains "World!"
+        // remove a node whose data contains "8"
         ft_list_remove_if(&lst, (void *)s4, &cmp2, &free);
         size = ft_list_size(lst);
         printf("List size after removal: %d\n", size);
@@ -100,6 +100,16 @@ int	main()
 			printf("Fourth element: %s\n", (char *)lst->next->next->next->data);
         printf("\n");
 
+
+        // remove a node whose data contains "5"
+        ft_list_remove_if(&lst, (void *)s1, &cmp2, &free);
+        size = ft_list_size(lst);
+        printf("List size after removal: %d\n", size);
+        printf("First element: %s\n", (char *)lst->data);
+        printf("Second element: %s\n", (char *)lst->next->data);
+		if (lst->next->next)
+			printf("Third element: %s\n", (char *)lst->next->next->next->data);
+        printf("\n");
 
 		// free the list
 		while (lst)
