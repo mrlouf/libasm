@@ -98,7 +98,7 @@ int	main()
 		if (lst->next->next->next)
 			printf("Fourth element: %s\n", (char *)lst->next->next->next->data);
         printf("\n");
-
+/* 
 
         // remove a node whose data contains "5"
         ft_list_remove_if(&lst, (void *)s1, &cmp2, &free);
@@ -108,7 +108,7 @@ int	main()
         printf("Second element: %s\n", (char *)lst->next->data);
 		if (lst->next->next)
 			printf("Third element: %s\n", (char *)lst->next->next->next->data);
-        printf("\n");
+        printf("\n"); */
 
 		// free the list
 		while (lst)

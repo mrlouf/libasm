@@ -24,7 +24,7 @@ OBJDIR			= .obj
 OBJS			= $(addprefix $(OBJDIR)/, $(SRCS:.s=.o))
 OBJS_BONUS		= $(addprefix $(OBJDIR)/, $(SRCS_BONUS:.s=.o))
 
-CFLAGS			= -Werror -Wextra -Wall -fsanitize=undefined -fsanitize=alignment -fsanitize=address
+CFLAGS			= -Werror -Wextra -Wall -Wpedantic -g
 
 all:	$(NAME)
 
@@ -36,7 +36,7 @@ $(OBJDIR)/%.o:	%.s Makefile
 
 $(NAME): $(OBJS) Makefile $(SRCDIR)/main.c
 	@ar rcs $(NAME) $(OBJS)
-	@gcc -g $(CFLAGS) $(SRCDIR)/main.c -L. $(OBJS) -o test
+	@gcc $(CFLAGS) $(SRCDIR)/main.c -L. $(OBJS) -o test
 
 $(OBJDIR)/%_bonus.o:	%_bonus.s Makefile
 	@mkdir -p $(@D)
@@ -44,7 +44,7 @@ $(OBJDIR)/%_bonus.o:	%_bonus.s Makefile
 
 test_bonus: $(OBJS_BONUS) Makefile $(SRCDIR_BONUS)/main_bonus.c
 	@ar rcs $(NAME) $(OBJS_BONUS)
-	@gcc -g  $(CFLAGS) $(SRCDIR_BONUS)/main_bonus.c -L. $(OBJS_BONUS) -o test_bonus
+	@gcc $(CFLAGS) $(SRCDIR_BONUS)/main_bonus.c -L. $(OBJS_BONUS) -o test_bonus
 
 clean:
 	@/bin/rm -fr $(OBJDIR)
