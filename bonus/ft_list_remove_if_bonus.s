@@ -18,12 +18,24 @@ ft_list_remove_if:
     mov r13, rsi
     mov r14, rdx
     mov r15, rcx
+
+	; NULL checks
+    test r12, r12
+    jz .exit
+    test r13, r13
+    jz .exit
+    test r14, r14
+    jz .exit
+    test r15, r15
+    jz .exit
+
     mov rdx, [rdi]          ; rdx current node, ** dereferencing
     mov rcx, 0              ; previous node is null by default
 
 .loop:
-    cmp rdx, 0              ; if current node is null, exit
+    test rdx, rdx           ; if current node is null, exit
     je .exit
+
     mov rdi, [rdx]          ; rdi = current->data
     mov rsi, r13            ; rsi = data_ref
     push rdx                ; not callee-safe registers push
@@ -31,6 +43,7 @@ ft_list_remove_if:
     call r14                ; compare
     pop rcx
     pop rdx
+
     cmp rax, 0              ; check if the data matches
     jne .loop_skip          ; if it is not, then skip
 
