@@ -23,18 +23,16 @@ ft_list_push_front:
     pop rdi                 ; rdi <= stack
 
     cmp rax, 0              ; if (malloc(sizeof(t_list)) == NULL)
-    je error                ; return (error)
+    je .error               ; return (error)
 
     mov [rax], rsi          ; lst->data = data
     mov rcx, [rdi]
     mov [rax + 8], rcx      ; lst->next = *list
     mov [rdi], rax          ; *list = lst
+	ret
 
-error:
+.error:
     neg rax                             ; rax = -error_code
     mov rdi, rax                        ; save error_code before it is overwritten by errno call
     call __errno_location wrt ..plt     ; call errno via Procedure Linkage Table (PLT) instead of via absolute address (against PIE)
-    ret
-
-.exit:
     ret
