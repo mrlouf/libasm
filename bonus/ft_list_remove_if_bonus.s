@@ -50,14 +50,34 @@ ft_list_remove_if:
     cmp rdx, [r12]          ; data is same, is it head node?
     je .free_head           ; if head node, we need to update head ptr
 
-    mov rdi, [rdx + 8]      ; rdi: current->next
-    mov [rcx + 8], rdi      ; prev->next = current->next
-    mov rdi, [rdx]          ; rdi is current->data
-    push rcx
-    push rdx
-    test r15, r15           ; check if r15 (free function pointer) is not null
-    je .skip_free_data
-    call r15                ; free current->data
+.free_middle:
+    ; Save current->next before freeing anything
+    mov rax, [rdx + 8]      ; rax = current->next
+    
+    ; Update previous->next = current->next
+    mov [rcx + 8], rax      ; prev->next = current->next
+    
+    ; Free current->data
+    mov rdi, [rdx]          ; current->data
+    push rax                ; save next node
+    push rcx                ; save previous
+    push rdx                ; save current node
+    call r15                ; free(current->data)
+    pop rdx                 ; restore current node
+    pop rcx                 ; restore previous
+    pop rax                 ; restore next node
+    
+    ; Free current node
+    mov rdi, rdx            ; current node
+    push rax                ; save next node
+    push rcx                ; save previous
+    call free wrt ..plt     ; free(current)
+    pop rcx                 ; restore previous
+    pop rax                 ; restore next node
+    
+    ; Continue with next node (previous unchanged)
+    mov rdx, rax            ; current = next
+    jmp .loop
 
 .skip_free_data:
     pop rdx

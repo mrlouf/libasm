@@ -33,10 +33,8 @@ int	cmp(char *a, char *b)
 	return (*a > *b ? 1 : 0);
 }
 
-int	cmp2(const char *s1, const char *s2)
-{
-	if (!s1 || !s2) return 1;
-	return (strcmp(s1, s2) == 0 ? 0 : 1);
+int cmp_ptr(const void *a, const void *b) {
+    return a != b;
 }
 
 int	main()
@@ -89,7 +87,7 @@ int	main()
         printf("\n");
 
         // remove a node whose data contains "8"
-        ft_list_remove_if(&lst, (void *)s4, &cmp2, &free);
+        ft_list_remove_if(&lst, (void *)s4, &cmp_ptr, &free);
         size = ft_list_size(lst);
         printf("List size after removal: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
@@ -98,17 +96,17 @@ int	main()
 		if (lst->next->next->next)
 			printf("Fourth element: %s\n", (char *)lst->next->next->next->data);
         printf("\n");
-/* 
+
 
         // remove a node whose data contains "5"
-        ft_list_remove_if(&lst, (void *)s1, &cmp2, &free);
+        ft_list_remove_if(&lst, (void *)s1, &cmp_ptr, &free);
         size = ft_list_size(lst);
         printf("List size after removal: %d\n", size);
         printf("First element: %s\n", (char *)lst->data);
         printf("Second element: %s\n", (char *)lst->next->data);
 		if (lst->next->next)
 			printf("Third element: %s\n", (char *)lst->next->next->next->data);
-        printf("\n"); */
+        printf("\n");
 
 		// free the list
 		while (lst)
