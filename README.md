@@ -79,6 +79,12 @@ Summary table of the main 64-bit registers and their typical uses in NASM for Li
 
 - **Calling Convention**:
     - Arguments are passed in registers: `rdi`, `rsi`, `rdx`, `rcx`, `r8`, `r9`. Additional arguments are passed on the stack.
+	- Watch out for stack alignment: the stack pointer (`rsp`) must be 16-byte aligned before calling another function.
+	- Preserve callee-saved registers (`rbx`, `rbp`, `r12`-`r15`) if you use them in your function.
+	- Use `push` and `pop` to save and restore registers on the stack.
+	- The return address is automatically pushed onto the stack when a function is called using `call`.
+	- Use `ret` to return from a function, which pops the return address from the stack and jumps to it.
+	- Functions that call other functions must ensure the stack is aligned to a 16-byte boundary before making the call.
     - Return values are returned in `rax` for 64-bits, `eax` for 32-bits, and `al` for 8-bits.
 - **Memory Operations**:
     - Use `mov` to copy data between registers and memory.
