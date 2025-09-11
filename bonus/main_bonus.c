@@ -39,7 +39,7 @@ int cmp_ptr(const void *a, const void *b) {
 
 int	main()
 {
-	char		*s1 = strdup("5");
+/* 	char		*s1 = strdup("5");
 	char		*s2 = strdup("9");
 	char        *s3 = strdup("3");
 	char		*s4 = strdup("8");
@@ -116,7 +116,7 @@ int	main()
 			free(tmp->data);
 			free(tmp);
 		}
-    }
+    } */
     {
         printf("Testing ft_atoi_base with null string:\n");
         printf("%d\n", ft_atoi_base(NULL, "10"));
@@ -128,10 +128,16 @@ int	main()
         printf("%d\n", ft_atoi_base("-42", "0"));
 
         printf("Testing ft_atoi_base with base 10:\n");
-        printf("%d\n", ft_atoi_base("  \t -42", "0123456789"));
+        printf("%d\n", ft_atoi_base("  \t ----42", "0123456789"));
+
+        printf("Testing ft_atoi_base with base 10:\n");
+        printf("%d\n", ft_atoi_base("  \t +++++++++++++42", "0123456789"));
+
+        printf("Testing ft_atoi_base with base 10:\n");
+        printf("%d\n", ft_atoi_base("  \t +++++++++-++++42", "0123456789"));
 
         printf("Testing ft_atoi_base with base 2:\n");
-        printf("%d\n", ft_atoi_base("1010", "01"));
+        printf("%d\n", ft_atoi_base("-111", "01"));
 
         printf("Testing ft_atoi_base with base 16:\n");
         printf("%d\n", ft_atoi_base("FF", "0123456789ABCDEF"));
