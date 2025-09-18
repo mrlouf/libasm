@@ -13,7 +13,6 @@ section .text
 ft_atoi_base:
     xor eax, eax        ; initialise return value of = 0 in eax since we return an int
     xor ecx, ecx        ; initialise ecx to act as a sign register to multiply the end result without
-;    inc ecx             ; ecx = 1
     test rdi, rdi       ; test for null source
     jz .exit            ;
     test rsi, rsi       ; test for null base
